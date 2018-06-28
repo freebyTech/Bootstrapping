@@ -11,7 +11,7 @@ New-Item -ItemType directory -Path /build;
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 #Install node.js
-$nodeUrl = https://nodejs.org/dist/v${env:NODE_VERSION}/${env:NODE_FULL_NAME}.zip
+$nodeUrl = "https://nodejs.org/dist/v${env:NODE_VERSION}/${env:NODE_FULL_NAME}.zip"
 Write-Host "Downloading and installing node from $nodeUrl"
 Invoke-WebRequest https://nodejs.org/dist/v${env:NODE_VERSION}/${env:NODE_FULL_NAME}.zip -OutFile /build/node.zip -UseBasicParsing;
 Expand-Archive /build/node.zip -DestinationPath /build/nodejs-tmp;
@@ -20,7 +20,7 @@ Remove-Item -Force /build/node.zip;
 setx /M PATH $($Env:PATH + ';' + $Env:ProgramFiles + '/nodejs')
 
 #Install .NET Framework 2.1 SDK
-$dotnetFrameworkUrl = https://dotnetcli.blob.core.windows.net/dotnet/Sdk/${env:DOTNET_SDK_VERSION}/${env:DOTNET_SDK_FULL_NAME}.exe
+$dotnetFrameworkUrl = "https://dotnetcli.blob.core.windows.net/dotnet/Sdk/${env:DOTNET_SDK_VERSION}/${env:DOTNET_SDK_FULL_NAME}.exe"
 Write-Host "Downloading and installing dotnet framwork from $dotnetFrameworkUrl"
 Invoke-WebRequest $dotnetFrameworkUrl -OutFile /build/${env:DOTNET_SDK_FULL_NAME}.exe -UseBasicParsing;
 Start-Process /build/${env:DOTNET_SDK_FULL_NAME}.exe -ArgumentList '/quiet', '/norestart' -NoNewWindow -Wait;
@@ -42,7 +42,7 @@ CRLFOption=CRLFAlways
 BashTerminalOption=MinTTY
 PerformanceTweaksFSCache=Disabled
 "@ | Out-File -FilePath /build/git.conf
-$gitUrl = https://github.com/git-for-windows/git/releases/download/v${env:GIT_VERSION}.windows.1/Git-${env:GIT_VERSION}-64-bit.exe
+$gitUrl = "https://github.com/git-for-windows/git/releases/download/v${env:GIT_VERSION}.windows.1/Git-${env:GIT_VERSION}-64-bit.exe"
 Write-Host "Downloading and installing git from $gitUrl"
 Invoke-WebRequest $gitUrl -outfile /build/git.exe -UseBasicParsing;
 Start-Process /build/git.exe -ArgumentList '/VERYSILENT', '/NORESTART', '/SUPPRESSMSGBOXES', '/LOG', '/LOADINF=/build/git.conf' -NoNewWindow -Wait;
