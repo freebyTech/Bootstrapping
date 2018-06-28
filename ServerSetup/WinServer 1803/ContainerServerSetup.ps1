@@ -21,7 +21,7 @@ setx /M PATH $($Env:PATH + ';' + $Env:ProgramFiles + '/nodejs')
 
 #Install .NET Framework 2.1 SDK
 $dotnetFrameworkUrl = "https://dotnetcli.blob.core.windows.net/dotnet/Sdk/${env:DOTNET_SDK_VERSION}/${env:DOTNET_SDK_FULL_NAME}.exe"
-Write-Host "Downloading and installing dotnet framwork from $dotnetFrameworkUrl"
+Write-Host "Downloading and installing dotnet framework from $dotnetFrameworkUrl"
 Invoke-WebRequest $dotnetFrameworkUrl -OutFile /build/${env:DOTNET_SDK_FULL_NAME}.exe -UseBasicParsing;
 Start-Process /build/${env:DOTNET_SDK_FULL_NAME}.exe -ArgumentList '/quiet', '/norestart' -NoNewWindow -Wait;
 Remove-Item -Force /build/${env:DOTNET_SDK_FULL_NAME}.exe
