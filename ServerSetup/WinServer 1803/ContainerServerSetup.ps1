@@ -13,6 +13,7 @@ New-Item -ItemType directory -Path /build;
 #Install node.js
 $nodeUrl = "https://nodejs.org/dist/v${env:NODE_VERSION}/${env:NODE_FULL_NAME}.zip"
 Write-Host "Downloading and installing node from $nodeUrl"
+Write-Host "----------------------------------------"
 Invoke-WebRequest https://nodejs.org/dist/v${env:NODE_VERSION}/${env:NODE_FULL_NAME}.zip -OutFile /build/node.zip -UseBasicParsing;
 Expand-Archive /build/node.zip -DestinationPath /build/nodejs-tmp;
 Move-Item /build/nodejs-tmp/node-v${env:NODE_VERSION}-win-x64 ${env:ProgramFiles}/nodejs;
@@ -22,6 +23,7 @@ setx /M PATH $($Env:PATH + ';' + $Env:ProgramFiles + '/nodejs')
 #Install .NET Framework 2.1 SDK
 $dotnetFrameworkUrl = "https://dotnetcli.blob.core.windows.net/dotnet/Sdk/${env:DOTNET_SDK_VERSION}/${env:DOTNET_SDK_FULL_NAME}.exe"
 Write-Host "Downloading and installing dotnet framework from $dotnetFrameworkUrl"
+Write-Host "----------------------------------------"
 Invoke-WebRequest $dotnetFrameworkUrl -OutFile /build/${env:DOTNET_SDK_FULL_NAME}.exe -UseBasicParsing;
 Start-Process /build/${env:DOTNET_SDK_FULL_NAME}.exe -ArgumentList '/quiet', '/norestart' -NoNewWindow -Wait;
 Remove-Item -Force /build/${env:DOTNET_SDK_FULL_NAME}.exe
@@ -49,7 +51,9 @@ Start-Process /build/git.exe -ArgumentList '/VERYSILENT', '/NORESTART', '/SUPPRE
 Remove-Item -Force /build/git.exe
 
 # Install container components
-Write-Host "Installing container components"
+Write-Host "Installing Hypver-V and Necessary Container components"
+Write-Host "----------------------------------------"
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force 
 Install-Module DockerMsftProvider -Force 
 Install-Package Docker -ProviderName DockerMsftProvider -Force 
@@ -57,4 +61,5 @@ Install-WindowsFeature containers
 
 # Restart computer for docker windows service and for all path variables
 Write-Host "Restarting the computer"
+Write-Host "----------------------------------------"
 Restart-Computer
