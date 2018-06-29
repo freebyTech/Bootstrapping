@@ -4,19 +4,20 @@
 Follow the instructions below to perform a full install of all the components necessary to get a server setup for docker and .NET core development.
 1. Install the base 2016 Server using standard settings for your environment and Domain.
 2. Update to all the Lastest Service Packs.
-3. Run the following to install containerization:
+3. Run the following to install containerization and required tools:
 ```
 powershell
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 Invoke-WebRequest https://raw.githubusercontent.com/temporafugiunt/DockerSetupInfo/develop/ServerSetup/WinServer%201803/ContainerServerSetup.ps1 -outfile $env:TEMP/ContainerServerSetup.ps1
 Invoke-Expression $env:TEMP/ContainerServerSetup.ps1
+```
 
 ## Base Setup (Manual)
 1. Install the base 2016 Server using standard settings for your environment and Domain.
 2. Update to all the Lastest Service Packs.
 3. Run the following to install containerization:
-```
+
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force 
 Install-Module DockerMsftProvider -Force 
 Install-Package Docker -ProviderName DockerMsftProvider -Force 
