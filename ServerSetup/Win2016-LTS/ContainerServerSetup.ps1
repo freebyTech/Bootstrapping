@@ -49,7 +49,8 @@ Start-Process /build/git.exe -ArgumentList '/VERYSILENT', '/NORESTART', '/SUPPRE
 Remove-Item -Force /build/git.exe
 
 # Install container components
-Write-Host "Installing container components"
+Write-Host "Installing Hyper-V and Container Components"
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force 
 Install-Module DockerMsftProvider -Force 
 Install-Package Docker -ProviderName DockerMsftProvider -Force 
