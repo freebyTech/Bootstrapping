@@ -38,6 +38,7 @@ These tools are installed in the automated Base Setup (except Docker Desktop for
 | Git for Windows                    | https://git-scm.com/download/win                                    |                                           |
 | Install Latest .NET Core 2.1 SDK   | https://www.microsoft.com/net/download/windows                      |                                           |
 | Install Latest LTS Version of Node | https://nodejs.org/en/                                              |                                           |
+| HashiCorp Terraform                | https://www.terraform.io/downloads.html                             |                                           |
 
 ## Optional Support Tools
 These tools are not installed in the automated Base Setup.
@@ -63,5 +64,5 @@ code -v
 docker version 
 docker info 
 # run the hello-world container for full verification 
-docker container run hello-world:nanoserver
+docker container run hello-world
 ```
