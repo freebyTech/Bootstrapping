@@ -21,7 +21,7 @@ Invoke-WebRequest $nodeUrl -OutFile /build/node.zip -UseBasicParsing;
 Expand-Archive /build/node.zip -DestinationPath /build/nodejs-tmp;
 Move-Item /build/nodejs-tmp/node-v${env:NODE_VERSION}-win-x64 ${env:ProgramFiles}/nodejs;
 Remove-Item -Force /build/node.zip;
-setx /M PATH $($Env:PATH + ';' + $Env:ProgramFiles + '/nodejs')
+[Environment]::SetEnvironmentVariable('path', $($Env:PATH + ';' + $Env:ProgramFiles + '\nodejs'), 'Machine')
 
 #Install .NET Framework 2.1 SDK
 $dotnetFrameworkUrl = "https://dotnetcli.blob.core.windows.net/dotnet/Sdk/${env:DOTNET_SDK_VERSION}/${env:DOTNET_SDK_FULL_NAME}.exe"
@@ -59,7 +59,7 @@ Invoke-WebRequest $terraformUrl -OutFile /build/terraform.zip -UseBasicParsing;
 Expand-Archive /build/terraform.zip -DestinationPath /build/terraform-tmp;
 Move-Item /build/terraform-tmp ${env:ProgramFiles}/terraform;
 Remove-Item -Force /build/terraform.zip;
-setx /M PATH $($Env:PATH + ';' + $Env:ProgramFiles + '/terraform')
+[Environment]::SetEnvironmentVariable('path', $($Env:PATH + ';' + $Env:ProgramFiles + '\terraform'), 'Machine')
 
 # Restart computer for docker windows service and for all path variables
 Write-Host "Restarting the computer"
