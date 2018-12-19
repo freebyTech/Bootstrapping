@@ -1,19 +1,23 @@
 # Creating a Test / Development .NET Core and Docker Development Worstation for Windows 10
 
 ## Development Workstation Requirements
-Although .NET Core Applications can be compiled and run on Windows, Linux, and Mac, these instructions only outline a Windows 10 Professional or Enterprise Edition computer installation. This has the advangtage that it allows building and running both Windows Images and Ubuntu Images. 
+Although .NET Core Applications can be compiled and run on Windows, Linux, and Mac, these instructions only outline a Windows 10 Professional or Enterprise Edition computer installation. This has the advantage that it allows building and running both Windows Images and Ubuntu Images for .NET Core.
 
 Either an automated or manual installation can be performed. The following is assumed either way:
 
 1. The OS is either Windows 10 Professional and Enterprise editions, this is required for Docker Desktop for Windows 10 because of the need for HyperV support. 
-2. The base Windows 10 Workstaiton is installed using standard settings for your environment and Domain.
-3. The user performing the below installations will have administrative privilege on the computer.
+2. The base Windows 10 Workstation is installed using standard settings for your environment and Domain.
+3. The user performing the below installations will have administrative privilege on the computer or VM.
 4. The OS is updated to all the Lastest Service Packs.
 
 ## Base Setup (Automated)
 Follow the instructions below to perform a full install of all the components necessary to get a workstation setup for docker and .NET core development.
 
-1. Run the following (from administrative powershell) to install containerization and required tools:
+1. You have the ability to execute scripts on your local machine, even ones downloaded from the internet. If you don't you can run this powershell command to be able to execute scripts that are not signed.
+```
+Set-ExecutionPolicy Unrestricted -force
+```
+Run the following (from administrative powershell) to install containerization and required tools:
 ```
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
