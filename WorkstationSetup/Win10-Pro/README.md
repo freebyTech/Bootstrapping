@@ -17,7 +17,7 @@ Follow the instructions below to perform a full install of all the components ne
 ```
 Set-ExecutionPolicy Unrestricted -force
 ```
-Run the following (from administrative powershell) to install containerization and required tools:
+2. Run the following (from administrative powershell) to install containerization and required tools:
 ```
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
