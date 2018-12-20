@@ -40,6 +40,7 @@ These tools are installed in the automated Base Setup (except Docker Desktop for
 | Install Latest LTS Version of Node | https://nodejs.org/en/                                               |                                           |
 | HashiCorp Terraform                | https://www.terraform.io/downloads.html                              |                                           |
 | Azure CLI 2.0                      | https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows |                                           |
+| Kompose                            | https://kubernetes.io/docs/tasks/configure-pod-container/translate-compose-kubernetes/#install-kompose|          |
 
 ## Optional Support Tools
 These tools are not installed in the automated Base Setup.
@@ -62,6 +63,7 @@ npm -v
 code -v
 terraform -v
 az -v
+kompose -v
 ```
 2. Run the following to verify that Docker is properly installed and can download public images from the main Docker registry.
 ```

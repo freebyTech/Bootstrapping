@@ -13,6 +13,8 @@ $env:TERRAFORM_FULL_NAME = "terraform_${$env:TERRAFORM_VERSION}_windows_amd64"
 $env:AZURECLI_VERSION = '2.0.53'
 $env:AZURECLI_FULL_NAME = "azure-cli-${env:AZURECLI_VERSION}"
 
+$env:KOMPOSE_VERSION = '1.16.0'
+
 New-Item -ItemType directory -Path /build;    
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
@@ -71,6 +73,14 @@ Invoke-WebRequest $azureCliUrl -OutFile /build/azurecli.msi -UseBasicParsing;
 # Seems that because it is an msi it needs this format
 . c:\build\azurecli.msi /passive /norestart
 Remove-Item -Force /build/azurecli.msi
+
+# Install kompose Support
+$komposeUrl = "https://github.com/kubernetes/kompose/releases/download/v${env:KOMPOSE_VERSION}/kompose-windows-amd64.exe"
+Write-Host "Downloading and installing kompose from $nodeUrl"
+Invoke-WebRequest $komposeUrl -OutFile /build/kompose.exe -UseBasicParsing;
+New-Item -ItemType Directory -Force -Path ${env:ProgramFiles}/kompose
+Move-Item /build/kompose.exe ${env:ProgramFiles}/kompose/kompose.exe;
+[Environment]::SetEnvironmentVariable('path', $($Env:PATH + ';' + $Env:ProgramFiles + '\kompose'), 'Machine')
 
 # Restart computer for docker windows service and for all path variables
 Write-Host "Restarting the computer"
