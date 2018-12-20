@@ -32,13 +32,14 @@ If you are not allowed or prefer not to run scripts from public repositories, be
 ## Required Tools
 These tools are installed in the automated Base Setup (except Docker Desktop for Windows).
 
-| Tool                               | URL                                                                 | Notes                                     |
-| ---------------------------------- | ------------------------------------------------------------------- | ----------------------------------------- |
-| Docker Desktop for Windows         | https://hub.docker.com/editions/community/docker-ce-desktop-windows | Requires a docker hub account to download and requires Windows 10 Professional or Enterprise Edition |
-| Git for Windows                    | https://git-scm.com/download/win                                    |                                           |
-| Install Latest .NET Core 2.1 SDK   | https://www.microsoft.com/net/download/windows                      |                                           |
-| Install Latest LTS Version of Node | https://nodejs.org/en/                                              |                                           |
-| HashiCorp Terraform                | https://www.terraform.io/downloads.html                             |                                           |
+| Tool                               | URL                                                                  | Notes                                     |
+| ---------------------------------- | -------------------------------------------------------------------- | ----------------------------------------- |
+| Docker Desktop for Windows         | https://hub.docker.com/editions/community/docker-ce-desktop-windows  | Requires a docker hub account to download and requires Windows 10 Professional or Enterprise Edition |
+| Git for Windows                    | https://git-scm.com/download/win                                     |                                           |
+| Install Latest .NET Core 2.1 SDK   | https://www.microsoft.com/net/download/windows                       |                                           |
+| Install Latest LTS Version of Node | https://nodejs.org/en/                                               |                                           |
+| HashiCorp Terraform                | https://www.terraform.io/downloads.html                              |                                           |
+| Azure CLI 2.0                      | https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows |                                           |
 
 ## Optional Support Tools
 These tools are not installed in the automated Base Setup.
@@ -57,7 +58,10 @@ git --version
 dotnet --version
 node -v
 npm -v
+# If visual studio code was installed (highly recommended)
 code -v
+terraform -v
+az -v
 ```
 2. Run the following to verify that Docker is properly installed and can download public images from the main Docker registry.
 ```

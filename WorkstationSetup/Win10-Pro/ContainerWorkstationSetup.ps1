@@ -10,6 +10,9 @@ $end:GIT_FULL_NAME = "Git-${env:GIT_VERSION}-64-bit.exe"
 $env:TERRAFORM_VERSION = '0.11.11'
 $env:TERRAFORM_FULL_NAME = "terraform_${$env:TERRAFORM_VERSION}_windows_amd64"
 
+$env:AZURECLI_VERSION = '2.0.53'
+$env:AZURECLI_FULL_NAME = "azure-cli-${env:AZURECLI_VERSION}"
+
 New-Item -ItemType directory -Path /build;    
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
@@ -46,20 +49,28 @@ CRLFOption=CRLFAlways
 BashTerminalOption=MinTTY
 PerformanceTweaksFSCache=Disabled
 "@ | Out-File -FilePath /build/git.conf
-$gitUrl = "https://github.com/git-for-windows/git/releases/download/v${env:GIT_VERSION}.windows.1/Git-${env:GIT_VERSION}-64-bit.exe"
+$gitUrl = "https://github.com/git-for-windows/git/releases/download/v${env:GIT_VERSION}.windows.1/${env:GIT_FULL_NAME}.exe"
 Write-Host "Downloading and installing git from $gitUrl"
 Invoke-WebRequest $gitUrl -outfile /build/git.exe -UseBasicParsing;
 Start-Process /build/git.exe -ArgumentList '/VERYSILENT', '/NORESTART', '/SUPPRESSMSGBOXES', '/LOG', '/LOADINF=/build/git.conf' -NoNewWindow -Wait;
 Remove-Item -Force /build/git.exe
 
 # Install HashiCorp Terraform Support
-$terraformUrl = "https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_windows_amd64.zip"
+$terraformUrl = "https://releases.hashicorp.com/terraform/${env:TERRAFORM_VERSION}/${env:TERRAFORM_FULL_NAME}.zip"
 Write-Host "Downloading and installing terraform from $terraformUrl"
 Invoke-WebRequest $terraformUrl -OutFile /build/terraform.zip -UseBasicParsing;
 Expand-Archive /build/terraform.zip -DestinationPath /build/terraform-tmp;
 Move-Item /build/terraform-tmp ${env:ProgramFiles}/terraform;
 Remove-Item -Force /build/terraform.zip;
 [Environment]::SetEnvironmentVariable('path', $($Env:PATH + ';' + $Env:ProgramFiles + '\terraform'), 'Machine')
+
+# Install the Azure CLI Support
+$azureCliUrl = "https://azurecliprod.azureedge.net/msi/${env:AZURECLI_FULL_NAME}.msi"
+Write-Host "Downloading and installing Azure CLI from $azureCliUrl"
+Invoke-WebRequest $azureCliUrl -OutFile /build/azurecli.msi -UseBasicParsing;
+# Seems that because it is an msi it needs this format
+. c:\build\azurecli.msi /passive /norestart
+Remove-Item -Force /build/azurecli.msi
 
 # Restart computer for docker windows service and for all path variables
 Write-Host "Restarting the computer"
