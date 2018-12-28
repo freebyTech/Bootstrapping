@@ -8,7 +8,7 @@ $env:GIT_VERSION = '2.18.0'
 $end:GIT_FULL_NAME = "Git-${env:GIT_VERSION}-64-bit.exe"
 
 $env:TERRAFORM_VERSION = '0.11.11'
-$env:TERRAFORM_FULL_NAME = "terraform_${$env:TERRAFORM_VERSION}_windows_amd64"
+$env:TERRAFORM_FULL_NAME = "terraform_${env:TERRAFORM_VERSION}_windows_amd64"
 
 $env:AZURECLI_VERSION = '2.0.53'
 $env:AZURECLI_FULL_NAME = "azure-cli-${env:AZURECLI_VERSION}"
